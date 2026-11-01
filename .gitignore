@@ -1,0 +1,22 @@
+# Runtime artifacts and caches
+__pycache__/
+*.py[cod]
+*.sock
+*.socket
+*.lock
+*.pid
+*.log
+.cache/
+.pytest_cache/
+.runtime/
+tmp/
+tests/runtime-*/
+# Local secrets and credentials
+.env
+.env.*
+!.env.example
+secrets/
+credentials/
+*.pem
+*.key
+*.p12

@@ -1,0 +1,74 @@
+id = "gpkinze/lattice"
+name = "Lattice"
+version = "0.3.0"
+plugin_api = 43
+author = "GPKinze"
+license = "MIT"
+description = "A dynamic workspace and window navigator for Umbriel and Noctalia. Inline window selection and native icon tooltips."
+tags = ["umbriel", "workspaces"]
+dependencies = ["python3"]
+
+[[service]]
+id = "state"
+entry = "service.luau"
+
+[[widget]]
+id = "bar"
+entry = "bar.luau"
+hover_highlight = false
+
+[widget.actions]
+left = "none"
+right = "none"
+middle = "none"
+back = "none"
+forward = "none"
+scroll_up = "none"
+scroll_down = "none"
+scroll_left = "none"
+scroll_right = "none"
+
+[[widget.setting]]
+key = "capsule_padding"
+type = "int"
+label_key = "settings.capsule_padding.label"
+default = 6
+min = 0
+max = 16
+
+[[widget.setting]]
+key = "workspace_spacing"
+type = "int"
+label_key = "settings.workspace_spacing.label"
+default = 4
+min = 0
+max = 12
+
+[[widget.setting]]
+key = "icon_size"
+type = "int"
+label_key = "settings.icon_size.label"
+default = 16
+min = 12
+max = 24
+
+[[widget.setting]]
+key = "max_icons"
+type = "int"
+label_key = "settings.max_icons.label"
+default = 4
+min = 1
+max = 8
+
+[[widget.setting]]
+key = "group_icons"
+type = "bool"
+label_key = "settings.group_icons.label"
+default = true
+
+[[widget.setting]]
+key = "density"
+type = "select"
+label_key = "settings.density.label"
+default = "compact"
+options = [{ value = "compact", label_key = "density.compact" }, { value = "normal", label_key = "density.normal" }, { value = "roomy", label_key = "density.roomy" }]

@@ -1,0 +1,22 @@
+{
+  "workspace.named": "Named workspace",
+  "workspace.anonymous": "Anonymous workspace position",
+  "workspace.windows": "Windows reported by Umbriel",
+  "workspace.active": "Active on this output",
+  "workspace.focused": "Globally focused workspace",
+  "workspace.urgent": "Attention requested",
+  "application.unknown": "Unknown application",
+  "status.empty": "Umbriel reports no workspaces on this output",
+  "status.unavailable": "Umbriel workspace state or this output is unavailable",
+  "settings.capsule_padding.label": "Capsule horizontal padding",
+  "settings.workspace_spacing.label": "Workspace spacing",
+  "settings.icon_size.label": "Application icon size",
+  "settings.max_icons.label": "Maximum visible window icons",
+  "settings.group_icons.label": "Arrange windows by application",
+  "settings.density.label": "Density",
+  "density.compact": "Compact",
+  "density.normal": "Normal",
+  "density.roomy": "Roomy",
+  "preview.empty": "No windows on this workspace",
+  "windows.next_page": "Show next windows — page"
+}
