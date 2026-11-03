@@ -1,26 +1,30 @@
 # Lattice
 
-Lattice is a Noctalia bar plugin for navigating Umbriel workspaces and windows. It shows Umbriel's workspaces as compact horizontal capsules and lets me select individual windows from the bar. The idea was inspired by [Omarchy Spaces](https://github.com/tornikegomareli/omarchy-spaces); Lattice has its own Noctalia and Umbriel implementation.
+**My personal workspace and window navigation plugin for Noctalia and Umbriel.**
+
+I created Lattice for my own desktop workflow. It displays Umbriel workspaces as compact horizontal capsules and lets me navigate between workspaces and select individual windows directly from the Noctalia bar. The idea was inspired by [Omarchy Spaces](https://github.com/tornikegomareli/omarchy-spaces), but Lattice has its own Noctalia and Umbriel implementation.
+
+> **Personal project:** I'm sharing Lattice publicly for transparency, reference, and to showcase the ideas behind it. It is not intended as a general-purpose release or supported community plugin. I don't currently plan to provide installation assistance, setup guidance, or user support.
 
 ## What it does
 
-- **Workspace capsules:** labels, order, IDs, occupancy, and output ownership come from Umbriel. Lattice preserves names exactly, including Unicode and numeric-looking names.
-- **Active and hover states:** the active workspace follows compositor-confirmed state. Hover highlights are subtle, and urgency highlighting takes priority.
-- **Individual window icons:** each window has its own selectable icon, even when several windows use the same application. Clicking an icon validates the current stable window ID and asks Umbriel to focus that exact window and warp the cursor to its native target position.
-- **Stable ordering and grouping:** surviving window icons keep their relative order as state changes. Icons for the same application are grouped together without combining their individual click targets.
-- **Overflow paging:** when a workspace has more windows than fit, `+N` pages through the remaining icons.
-- **Native tooltips:** Noctalia supplies tooltip timing and rendering; Lattice provides the application ID and available window title.
-- **Output-aware behavior:** workspace and window interactions are checked against their current output and state.
+- **Workspace capsules:** Display workspace labels, order, IDs, occupancy, and output ownership. Names are preserved exactly, including Unicode and numeric-looking names.
+- **Active and hover states:** Follow compositor-confirmed active workspace state, with subtle hover highlights and urgency highlighting taking priority.
+- **Individual window icons:** Give each window its own selectable icon, even when multiple windows use the same application. Selecting an icon validates the current stable window ID and asks Umbriel to focus that window and warp the cursor to its native target position.
+- **Stable ordering and grouping:** Preserve the relative order of surviving window icons. Icons for the same application are grouped without combining their individual click targets.
+- **Overflow paging:** Use `+N` to page through additional window icons when they do not fit.
+- **Native tooltips:** Use Noctalia's tooltip timing and rendering, with the application ID and available window title supplied by Lattice.
+- **Output-aware behavior:** Check workspace and window interactions against their current output and state.
 
 Clicking a workspace label navigates to that workspace. Hovering does not navigate or focus a window.
 
 ## Requirements
 
 - Noctalia with plugin API support through **API 43**.
-- Umbriel with its workspace, window, output, and native action IPC.
+- Umbriel with workspace, window, output, and native action IPC.
 - Python 3 for the read-only IPC reader and one-shot action helper. Both use the Python standard library.
 
-Lattice is designed for Noctalia running with Umbriel. It does not provide an integration for other compositors.
+I designed Lattice for Noctalia running with Umbriel. It does not provide an integration for other compositors.
 
 ## How it works
 
@@ -32,23 +36,25 @@ Lattice is designed for Noctalia running with Umbriel. It does not provide an in
 
 The production dependency allowlist is recorded in [`PRODUCTION_FILES.sha256`](PRODUCTION_FILES.sha256). Historical reports, evidence, and prototypes are not runtime dependencies.
 
-## Current limits
+## Current limitations
 
-Lattice does not capture live window thumbnails and cannot move a window to another workspace by exact window ID. Umbriel needs an atomic exact-ID move action before safe window movement can be supported. Workspace switching uses Umbriel's name or positional selector; a final reorder race cannot be fully eliminated by the current interface.
+- Lattice does not capture live window thumbnails.
+- Lattice cannot move a window to another workspace by exact window ID. Umbriel needs an atomic exact-ID move action before safe window movement can be supported.
+- Workspace switching uses Umbriel's name or positional selector; a final reorder race cannot be fully eliminated by the current interface.
+- The workspace model keeps outputs independent, but physical multi-monitor and hotplug behavior have not been verified in the recorded live test.
+- Very long workspace labels may exceed the space available in the host bar; Lattice does not rewrite them.
 
-The workspace model keeps outputs independent, but physical multi-monitor and hotplug behavior have not been verified in the recorded live test. Very long workspace labels may exceed the space available in the host bar; Lattice does not rewrite them.
+## Development & transparency
 
-## Installation
+I developed Lattice with substantial assistance from AI tools through an iterative process.
 
-There is no general-purpose install script. Use the plugin installation workflow documented for your Noctalia version, with this repository's `plugin.toml` as the manifest. Enable Lattice through Noctalia and add its bar widget using the shell's plugin and bar controls. The host desktop controls the overall bar layout.
+I used AI tools to help explore ideas, generate and refine code, investigate issues, and improve the implementation. I reviewed changes and worked through repeated rounds of testing, debugging, and refinement rather than treating generated code as automatically correct.
 
-Lattice does not require a fixed overall bar width or end margins. These are controlled by the host desktop layout.
+The repository includes automated tests and validation checks. These help catch regressions and verify parts of the implementation, but they do not prove that every behavior is bug-free or that every environment has been tested. Some limitations and unverified behaviors are listed above.
 
-See the [Noctalia plugin documentation](https://github.com/noctalia-dev/noctalia/tree/v5.4.0/docs/user/plugins) for the versioned plugin workflow.
+## Development checks
 
-## Development
-
-From the repository root:
+From the repository root, I use:
 
 ```sh
 python3 -B tests/run.py
